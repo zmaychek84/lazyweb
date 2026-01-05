@@ -10,7 +10,44 @@
           "version": "1.0.0",
           "semanticVersion": "1.0.0",
           "informationUri": "https://www.glog.ai",
-          "rules": [],
+          "rules": [
+            {
+              "id": "31db6098-3138-304e-8176-04eace1caa52",
+              "name": "\"Dynamic Input Vulnerability in jQuery HTML Manipulation: Sanitization and Plain Text Content\"",
+              "helpUri": "https://www.glog.ai/",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe code snippet provided is vulnerable to a type of attack known as Cross-Site Scripting (XSS). This is because it uses the `append()` function of jQuery to dynamically add HTML content to the page. If an attacker can control the input that is being appended, they can inject malicious scripts into the page, which will then be executed in the context of the victim's session.\n\nThis vulnerability is specifically related to the jQuery library's HTML manipulation functions, which do not properly sanitize input to ensure that it is safe to be included as HTML. This can lead to a variety of attacks, including stealing sensitive information, performing actions on behalf of the user, or delivering malware.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, you should avoid using jQuery's HTML manipulation functions with untrusted input. Instead, use functions that treat input as plain text, such as `text()`, or ensure that any input is properly sanitized before it is included as HTML.\n\n## Source Code Fix\n\nHere is a fixed version of the code snippet:\n\n```javascript\n$(\".form-check label,.form-radio label\").append($('<i></i>').addClass(\"input-helper\"));\n```\n\nIn this version, we create a new `<i>` element and add the class to it using the `addClass()` function. This ensures that the input is treated as plain text, not HTML.\n\n## Library Dependencies\n\nThe code snippet requires the following library to execute properly:\n\n- jQuery\n\n## OWASP and CWE Links\n\n- [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\n- [CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')](https://cwe.mitre.org/data/definitions/79.html)"
+              },
+              "properties": {
+                "cwe": [
+                  {
+                    "id": "CWE-79",
+                    "url": "https://cwe.mitre.org/data/definitions/79.html"
+                  }
+                ],
+                "severity": "MEDIUM",
+                "kind": "FAIL",
+                "tags": [
+                  "CWE-79"
+                ]
+              }
+            },
+            {
+              "id": "f2a90743-3d47-37a9-b7f2-673525f66bc3",
+              "name": "Exclusion of Unreadable Files from Scans Due to High False Positive Rate; Recommendation for Storage in CDN or Cloud Buckets",
+              "helpUri": "https://www.glog.ai/",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe vulnerability \"Exclusion of Unreadable Files from Scans Due to High False Positive Rate; Recommendation for Storage in CDN or Cloud Buckets\" refers to the situation where certain files are excluded from security scans due to their unreadability, which can lead to a high false positive rate. This can occur in JavaScript programming when certain files, such as those stored in node modules, are not properly scanned for vulnerabilities. This can lead to potential security risks if these files contain malicious code or vulnerabilities that are not detected.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to ensure that all files, including those that are unreadable or stored in node modules, are properly scanned for vulnerabilities. This can be achieved by using security tools that are capable of scanning such files. Additionally, storing files in a Content Delivery Network (CDN) or cloud buckets can help to improve the security of these files by providing additional layers of protection.\n\n## Source Code Fix Recommendation\n\nThe provided code snippet is using gulp to inject various dependencies into the project. To ensure that these dependencies are secure, it is recommended to regularly update these dependencies to their latest versions, as updates often include security patches for known vulnerabilities.\n\n```javascript\n.pipe(inject(gulp.src(['./node_modules/mdi/css/materialdesignicons.min.css', './node_modules/simple-line-icons/css/simple-line-icons.css' , './node_modules/perfect-scrollbar/css/perfect-scrollbar.css' , './node_modules/jquery/dist/jquery.min.js', './node_modules/popper.js/dist/umd/popper.min.js' , './node_modules/bootstrap/dist/js/bootstrap.min.js' , './node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js'], {read: false}), {name: 'plugins', relative: true}))\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies to execute properly:\n\n- mdi\n- simple-line-icons\n- perfect-scrollbar\n- jquery\n- popper.js\n- bootstrap\n\n## OWASP and CWE Links\n\n- [OWASP Top 10 Security Risks](https://owasp.org/www-project-top-ten/)\n- [CWE for Security Vulnerabilities](https://cwe.mitre.org/index.html)\n\nPlease note that these links are subject to change and may not be accessible to all users."
+              },
+              "properties": {
+                "cwe": [],
+                "severity": "MEDIUM",
+                "kind": "FAIL"
+              }
+            }
+          ],
           "language": "en-US",
           "contents": [
             "localizedData",
@@ -20,7 +57,78 @@
         }
       },
       "language": "en-US",
-      "results": [],
+      "results": [
+        {
+          "ruleId": "31db6098-3138-304e-8176-04eace1caa52",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "\"Dynamic Input Vulnerability in jQuery HTML Manipulation: Sanitization and Plain Text Content\""
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "user/js/misc.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 5,
+                  "endLine": 50,
+                  "endColumn": 84,
+                  "snippet": {
+                    "text": "    $(\".form-check label,.form-radio label\").append('<i class=\"input-helper\"></i>');"
+                  }
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "glog-pfp-ruleFileLineCode/v1": "92a30a58353ae9cd4618d8c31c0324a9d12c00715426d47293afd4e7ce35fce5",
+            "glog-pfp-ruleFileCode/v1": "3e1e49cd5a13494e87f813431f5ec89b292dc51d588b43508c7a67418e675a82"
+          },
+          "fingerprints": {
+            "glog-fp-ruleFileCode/v1": "3e1e49cd5a13494e87f813431f5ec89b292dc51d588b43508c7a67418e675a82"
+          },
+          "properties": {}
+        },
+        {
+          "ruleId": "f2a90743-3d47-37a9-b7f2-673525f66bc3",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Exclusion of Unreadable Files from Scans Due to High False Positive Rate; Recommendation for Storage in CDN or Cloud Buckets"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "user/gulpfile.js",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 92,
+                  "startColumn": 1,
+                  "endLine": 92,
+                  "endColumn": 476,
+                  "snippet": {
+                    "text": "    .pipe(inject(gulp.src(['./node_modules/mdi/css/materialdesignicons.min.css', './node_modules/simple-line-icons/css/simple-line-icons.css' , './node_modules/perfect-scrollbar/css/perfect-scrollbar.css' , './node_modules/jquery/dist/jquery.min.js', './node_modules/popper.js/dist/umd/popper.min.js' , './node_modules/bootstrap/dist/js/bootstrap.min.js' , './node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js'], {read: false}), {name: 'plugins', relative: true}))"
+                  }
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "glog-pfp-ruleFileLineCode/v1": "660760d579a5cbda0d5897376c1bdc2adf8003f347a10a8f716491fb4582668e",
+            "glog-pfp-ruleFileCode/v1": "b82a85d2398a97b0da3426eb5680ac5a61345837c13ef11e155f90464668c44d"
+          },
+          "fingerprints": {
+            "glog-fp-ruleFileCode/v1": "b82a85d2398a97b0da3426eb5680ac5a61345837c13ef11e155f90464668c44d"
+          },
+          "properties": {}
+        }
+      ],
       "newlineSequences": [
         "\r\n",
         "\n"
